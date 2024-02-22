@@ -8,8 +8,6 @@ import org.mcsg.survivalgames.MessageManager;
 import org.mcsg.survivalgames.MessageManager.PrefixType;
 import org.mcsg.survivalgames.SettingsManager;
 
-
-
 public class ForceStart implements SubCommand {
 
 	MessageManager msgmgr = MessageManager.getInstance();
@@ -36,7 +34,7 @@ public class ForceStart implements SubCommand {
 			return true;
 		}
 		if(GameManager.getInstance().getGame(game).getActivePlayers() < 2){
-			MessageManager.getInstance().sendFMessage(PrefixType.ERROR, "error.notenoughtplayers", player);
+			MessageManager.getInstance().sendFMessage(PrefixType.ERROR, "error.notenoughplayers", player);
 			return true;
 		}
 

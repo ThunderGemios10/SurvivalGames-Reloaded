@@ -165,7 +165,6 @@ public class GameManager {
 		kitsel.add(p);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void selectKit(Player p, int i) {
 		p.getInventory().clear();
 		ArrayList<Kit>kits = getKits(p);

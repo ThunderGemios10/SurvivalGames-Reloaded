@@ -2,31 +2,30 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mcsg</groupId>
   <artifactId>survivalgames</artifactId>
-  <version>0.5.8</version>
-  <name>SurvivalGames</name>
+  <version>0.5.9-SNAPSHOT</version>
+  <name>SurvivalGamesReloaded</name>
       <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <upload.dbo.category>server-mods</upload.dbo.category>
         <upload.dbo.slug>survival-games</upload.dbo.slug>
-
     </properties>
   <repositories>
     <repository>
-      <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/content/groups/public</url>
+        <id>spigot-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository> <!--
 <repository>
 <id>mcstats-repo</id>
 <url>http://repo.mcstats.org/content/repositories/public</url>
 </repository> -->
+      <repository>
+          <id>vault-repo</id>
+          <url>https://nexus.hc.to/content/repositories/pub_releases/</url>
+      </repository>
     <repository>
-      <id>drtshock-repo</id>
-      <url>http://ci.drtshock.com/plugin/repository/everything</url>
-    </repository>
-    <repository>
-      <id>sk89q-repo</id>
-      <url>http://maven.sk89q.com/repo</url>
+      <id>enginehub-repo</id>
+      <url>https://maven.enginehub.org/repo/</url>
     </repository>
   </repositories>
   <build>
@@ -59,11 +58,32 @@
 </plugin> -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <relocations>
+            <relocation>
+              <pattern>org.bstats</pattern>
+              <shadedPattern>org.mcsg</shadedPattern>
+            </relocation>
+          </relocations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.7</source>
+          <target>1.7</target>
         </configuration>
       </plugin>
       <plugin>
@@ -98,19 +118,28 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.5.2-R0.1</version>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.8.8-R0.1-SNAPSHOT</version>
+           <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.sk89q</groupId>
-      <artifactId>worldedit</artifactId>
-      <version>5.5.7-SNAPSHOT</version>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>6.1.1-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
       <artifactId>Vault</artifactId>
-      <version>1.2.26-SNAPSHOT</version>
+      <version>1.2.30</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bstats</groupId>
+      <artifactId>bstats-bukkit</artifactId>
+      <version>3.0.2</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

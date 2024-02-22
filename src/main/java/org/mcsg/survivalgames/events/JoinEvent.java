@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.mcsg.survivalgames.GameManager;
 import org.mcsg.survivalgames.SettingsManager;
-import org.mcsg.survivalgames.util.UpdateChecker;
+//import org.mcsg.survivalgames.util.UpdateChecker;
 
 
 
@@ -20,7 +20,6 @@ public class JoinEvent implements Listener {
         this.plugin = plugin;
     }
     
-    @SuppressWarnings("deprecation")
 	@EventHandler
     public void PlayerJoin(PlayerJoinEvent e) {
         final Player p = e.getPlayer();
@@ -32,15 +31,15 @@ public class JoinEvent implements Listener {
         }
 */
         
-        if(GameManager.getInstance().getBlockGameId(p.getLocation()) != -1){
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-                public void run(){
+        if (GameManager.getInstance().getBlockGameId(p.getLocation()) != -1) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                public void run() {
                     p.teleport(SettingsManager.getInstance().getLobbySpawn());
 
                 }
             }, 5L);
         }
-        if((p.isOp() || p.hasPermission("sg.system.updatenotify")) && SettingsManager.getInstance().getConfig().getBoolean("check-for-update", true)){
+        /*if((p.isOp() || p.hasPermission("sg.system.updatenotify")) && SettingsManager.getInstance().getConfig().getBoolean("check-for-update", true)){
             Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
 
                 public void run() {
@@ -48,7 +47,7 @@ public class JoinEvent implements Listener {
                     new UpdateChecker().check(p, plugin);
                 }
              }, 60L);
-        }
+        } */
     }
     
 }

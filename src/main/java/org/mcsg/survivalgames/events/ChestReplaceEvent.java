@@ -21,8 +21,6 @@ import org.mcsg.survivalgames.Game.GameMode;
 import org.mcsg.survivalgames.SurvivalGames;
 import org.mcsg.survivalgames.util.ChestRatioStorage;
 
-
-
 public class ChestReplaceEvent implements Listener{
 
 	private Random rand = new Random();

@@ -32,7 +32,6 @@ import org.mcsg.survivalgames.commands.SetSpawn;
 import org.mcsg.survivalgames.commands.Spectate;
 import org.mcsg.survivalgames.commands.SubCommand;
 import org.mcsg.survivalgames.commands.Teleport;
-import org.mcsg.survivalgames.commands.Test;
 import org.mcsg.survivalgames.commands.Vote;
 
 
@@ -57,7 +56,7 @@ public class CommandHandler implements CommandExecutor {
 		commands.put("setspawn", new SetSpawn());
 		commands.put("getcount", new ListArenas());
 		commands.put("disable", new Disable());
-		commands.put("start", new ForceStart());
+		commands.put("forcestart", new ForceStart());
 		commands.put("enable", new Enable());
 		commands.put("vote", new Vote());
 		commands.put("leave", new Leave());
@@ -123,13 +122,13 @@ public class CommandHandler implements CommandExecutor {
 			return true;
 		}
 
-		if (cmd1.getName().equalsIgnoreCase("survivalgames")) {
+		if (cmd1.getName().toLowerCase().equalsIgnoreCase("survivalgames")) {
 			if (args == null || args.length < 1) {
 				msgmgr.sendMessage(PrefixType.INFO, "Version " + pdfFile.getVersion() + " by Double0negative", player);
 				msgmgr.sendMessage(PrefixType.INFO, "Type /sg help <player | staff | admin> for command information", player);
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("help")) {
+			if (args[0].toLowerCase().equalsIgnoreCase("help")) {
 				if (args.length == 1) {
 					help(player, 1);
 				}
@@ -152,7 +151,7 @@ public class CommandHandler implements CommandExecutor {
 				}
 				return true;
 			}
-			String sub = args[0];
+			String sub = args[0].toLowerCase();
 			Vector < String > l = new Vector < String > ();
 			l.addAll(Arrays.asList(args));
 			l.remove(0);
@@ -166,7 +165,7 @@ public class CommandHandler implements CommandExecutor {
 				commands.get(sub).onCommand(player, args);
 			} catch (Exception e) {
 				e.printStackTrace();
-				msgmgr.sendFMessage(PrefixType.ERROR, "error.command", player, "command-["+sub+"] "+Arrays.toString(args));
+				msgmgr.sendFMessage(PrefixType.ERROR, "error.command", player, "command-[" + sub + "] " + Arrays.toString(args));
 				msgmgr.sendMessage(PrefixType.INFO, "Type /sg help for command information", player);
 			}
 			return true;
@@ -186,12 +185,12 @@ public class CommandHandler implements CommandExecutor {
 		}
 
 		for (String command : commands.keySet()) {
-			try{
+			try {
 				if (helpinfo.get(command) == page) {
 
 					msgmgr.sendMessage(PrefixType.INFO, commands.get(command).help(p), p);
 				}
-			}catch(Exception e){}
+			} catch(Exception e) {}
 		}
 		/*for (SubCommand v : commands.values()) {
             if (v.permission() != null) {

@@ -6,9 +6,7 @@ import org.mcsg.survivalgames.MessageManager;
 import org.mcsg.survivalgames.SettingsManager;
 import org.mcsg.survivalgames.MessageManager.PrefixType;
 
-
-
-public class ResetSpawns implements SubCommand{
+public class ResetSpawns implements SubCommand {
 
     public boolean onCommand(Player player, String[] args) {
         
@@ -16,8 +14,10 @@ public class ResetSpawns implements SubCommand{
             MessageManager.getInstance().sendFMessage(PrefixType.ERROR, "error.nopermission", player);
             return true;
         }
-        try{
-        SettingsManager.getInstance().getSpawns().set("spawns."+Integer.parseInt(args[0]), null);
+        try {
+        SettingsManager.getInstance().getSpawns().set("spawns."+ Integer.parseInt(args[0]), null);
+        MessageManager.getInstance().sendFMessage(MessageManager.PrefixType.INFO, "info.success", player, "command-resetspawns");
+        
         return true;
                 } catch (NumberFormatException e) {
                     MessageManager.getInstance().sendFMessage(MessageManager.PrefixType.ERROR, "error.notanumber", player, "input-Arena");

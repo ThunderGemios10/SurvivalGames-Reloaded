@@ -9,8 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.mcsg.survivalgames.util.MessageUtil;
 
-
-
 public class MessageManager {
 
 	public static MessageManager instance = new MessageManager();
@@ -96,7 +94,5 @@ public class MessageManager {
 	public void broadcastMessage(PrefixType type, String msg, Player player){
 		Bukkit.broadcastMessage(prefix.get(PrefixType.MAIN)+ " "+prefix.get(type)+ " "+msg );
 	}
-	
-
 
 }
