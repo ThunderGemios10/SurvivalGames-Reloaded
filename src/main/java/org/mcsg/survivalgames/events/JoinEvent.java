@@ -5,18 +5,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.mcsg.survivalgames.GameManager;
 import org.mcsg.survivalgames.SettingsManager;
 import org.mcsg.survivalgames.util.UpdateChecker;
 
-
-
 public class JoinEvent implements Listener {
     
-    Plugin plugin;
+    JavaPlugin plugin;
     
-    public JoinEvent(Plugin plugin){
+    public JoinEvent(JavaPlugin plugin){
         this.plugin = plugin;
     }
     
@@ -40,12 +38,17 @@ public class JoinEvent implements Listener {
                 }
             }, 5L);
         }
-        if((p.isOp() || p.hasPermission("sg.system.updatenotify")) && SettingsManager.getInstance().getConfig().getBoolean("check-for-update", true)){
+        if ((p.isOp() || p.hasPermission("sg.system.updatenotify")) && SettingsManager.getInstance().getConfig().getBoolean("check-for-update", true)) {
             Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
-
                 public void run() {
-                    System.out.println("[SG]Checking for updates");
-                    new UpdateChecker().check(p, plugin);
+                    plugin.getLogger().info("Checking for updates...");
+                    new UpdateChecker(plugin, 17740).getVersion(version -> {
+                        if (plugin.getDescription().getVersion().equals(version)) {
+                            plugin.getLogger().info("There is not a new update available.");
+                        } else {
+                            plugin.getLogger().info("There is a new update available.");
+                        }
+                    });
                 }
              }, 60L);
         }

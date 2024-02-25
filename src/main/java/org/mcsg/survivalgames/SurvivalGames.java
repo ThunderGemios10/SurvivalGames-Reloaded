@@ -21,6 +21,7 @@ import org.mcsg.survivalgames.logging.QueueManager;
 import org.mcsg.survivalgames.stats.StatsManager;
 import org.mcsg.survivalgames.util.ChestRatioStorage;
 import org.mcsg.survivalgames.util.DatabaseManager;
+import org.mcsg.survivalgames.util.UpdateChecker;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
@@ -63,6 +64,13 @@ public class SurvivalGames extends JavaPlugin {
 		//ensure that all worlds are loaded. Fixes some issues with Multiverse loading after this plugin had started
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Startup(), 10);
 		new Metrics(this, 21072);
+        new UpdateChecker(this, 17740).getVersion(version -> {
+            if (this.getDescription().getVersion().equals(version)) {
+                getLogger().info("There is not a new update available.");
+            } else {
+                getLogger().info("There is a new update available.");
+            }
+        });
 	}
 
 	class Startup implements Runnable {
