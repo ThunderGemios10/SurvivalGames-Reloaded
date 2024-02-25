@@ -26,7 +26,6 @@
 #DONT TOUCH THIS
 version: 1
 
-
 enabled: false
 
 
@@ -37,9 +36,6 @@ enabled: false
 #  AUTO_SELECT  = Auto select the top level kit
 
 kit-select-mode: 'SHOW_ALL'
-
-
-
 
 kits:
   test-kit:

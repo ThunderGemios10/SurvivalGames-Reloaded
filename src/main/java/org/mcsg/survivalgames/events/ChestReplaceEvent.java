@@ -3,7 +3,6 @@ package org.mcsg.survivalgames.events;
 import java.util.HashSet;
 import java.util.Random;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
@@ -33,24 +32,26 @@ public class ChestReplaceEvent implements Listener{
     		BlockState clicked = e.getClickedBlock().getState();
     		if(clicked instanceof Chest || clicked instanceof DoubleChest){
     			int gameid = GameManager.getInstance().getPlayerGameId(e.getPlayer());
-    			if(gameid != -1){
+    			if (gameid != -1) {
     				Game game = GameManager.getInstance().getGame(gameid);
     				if(game.getMode() == GameMode.INGAME){
     					HashSet<Block>openedChest = GameManager.openedChest.get(gameid);
     					openedChest = (openedChest == null)? new HashSet<Block>() : openedChest;
-    					if(!openedChest.contains(e.getClickedBlock())){
+    					if(!openedChest.contains(e.getClickedBlock())) {
     						Inventory[] invs = ((clicked instanceof Chest))? new Inventory[] {((Chest) clicked).getBlockInventory()}
     						: new Inventory[] {((DoubleChest)clicked).getLeftSide().getInventory(), ((DoubleChest)clicked).getRightSide().getInventory()};
     						ItemStack item = invs[0].getItem(0);
-    						int level = (item != null && item.getType() == Material.WOOL)? item.getData().getData() + 1 : 1;
+    						int level = (item != null && item.getType().toString().endsWith("WOOL")) ? item.getData().getData() + 1 : 1;
     						level = ChestRatioStorage.getInstance().getLevel(level);
     						SurvivalGames.debug(invs +" "+level);
-    						for(Inventory inv : invs){
+
+    						for (Inventory inv : invs) {
     							inv.setContents(new ItemStack[inv.getContents().length]);
-    				            for(ItemStack i: ChestRatioStorage.getInstance().getItems(level)){
+    				            for(ItemStack i: ChestRatioStorage.getInstance().getItems(level)) {
     				                int l = rand.nextInt(26);
-    				                while(inv.getItem(l) != null)
+    				                while (inv.getItem(l) != null) {
     				                    l = rand.nextInt(26);
+                                    }
     				                inv.setItem(l, i);
     				            }
     						}

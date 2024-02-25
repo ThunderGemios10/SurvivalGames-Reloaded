@@ -2,6 +2,7 @@ package org.mcsg.survivalgames.events;
 
 import java.util.ArrayList;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,21 +12,17 @@ import org.mcsg.survivalgames.Game;
 import org.mcsg.survivalgames.GameManager;
 import org.mcsg.survivalgames.SettingsManager;
 
-
-
 public class BreakEvent implements Listener {
+    public ArrayList<String> allowedBreak =  new ArrayList<String>();;
 
-    public ArrayList<Integer> allowedBreak =  new ArrayList<Integer>();;
-
-    public BreakEvent(){
-        allowedBreak.addAll( SettingsManager.getInstance().getConfig().getIntegerList("block.break.whitelist"));
+    public BreakEvent() {
+        allowedBreak.addAll(SettingsManager.getInstance().getConfig().getStringList("block.break.whitelist"));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
         Player p = event.getPlayer();
         int pid = GameManager.getInstance().getPlayerGameId(p);
-
 
         if(pid == -1){
             int blockgameid  = GameManager.getInstance().getBlockGameId(event.getBlock().getLocation());
@@ -38,17 +35,18 @@ public class BreakEvent implements Listener {
             return;
         }
 
-
         Game g = GameManager.getInstance().getGame(pid);
 
-        if(g.getMode() == Game.GameMode.DISABLED){
+        if (g.getMode() == Game.GameMode.DISABLED) {
             return;
         }
-        if(g.getMode() != Game.GameMode.INGAME){
+        if (g.getMode() != Game.GameMode.INGAME) {
             event.setCancelled(true);
             return;
         }
 
-        if(!allowedBreak.contains(event.getBlock().getTypeId()))event.setCancelled(true);
+        if (!allowedBreak.contains(event.getBlock().getType().toString())) {
+            event.setCancelled(true);
+        }
     }
 }

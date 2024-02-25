@@ -1,67 +1,62 @@
-#Configuration for the chest item ratios
-#this system works by levels. Level 1 aka lvl1 
-#is the most common stuff whereas lvl5 is the least 
-#common. You can set what will spawn at each level below.
-#The ratio setting determines how likley the next level is
-#to spawn in. a ratio of 2 means that it is twice as unlikley
-#for the next level to spawn in.
+# Configuration for the chest item ratios
+# this system works by levels. Level 1 aka lvl1 
+# is the most common stuff whereas lvl5 is the least 
+# common. You can set what will spawn at each level below.
+# The ratio setting determines how likley the next level is
+# to spawn in. a ratio of 2 means that it is twice as unlikley
+# for the next level to spawn in.
 ##FORMAT
-# <itemid>,<max amount per slot>
+# <item_name>,<max amount per slot>
 
 #DONT TOUCH THIS
-version: 0
+version: 1
 
 chest:
   ratio: 10
   lvl1:
-  - 268,1
-  - 298,1
-  - 299,1
-  - 300,1
-  - 301,1
-  - 319,3
-  - 349,3
-  - 260,3
-  - 262,5
+  - WOODEN_SWORD, 1
+  - LEATHER_HELMET, 1
+  - LEATHER_CHESTPLATE, 1
+  - LEATHER_LEGGINGS, 1
+  - LEATHER_BOOTS, 1
+  - PORKCHOP, 3
+  - COD, 3
+  - APPLE, 3
+  - ARROW, 5
   lvl2:
-  - 268,1
-  - 314,1
-  - 315,1
-  - 316,1
-  - 317,1
-  - 320,3
-  - 281,4
-  - 260,2
-  - 363,4
-  - 364,2
-  - 365,4
-  - 366,2
-  - 368,2
-  - 282,1
+  - WOODEN_SWORD, 1
+  - GOLDEN_HELMET, 1
+  - GOLDEN_CHESTPLATE, 1
+  - GOLDEN_LEGGINGS, 1
+  - GOLDEN_BOOTS, 1
+  - COOKED_PORKCHOP, 3
+  - BOWL, 4
+  - APPLE, 2
+  - COAL, 4
+  - DIAMOND, 2
+  - IRON_INGOT, 4
+  - COOKED_CHICKEN, 2
+  - ENDER_PEARL, 2
+  - MUSHROOM_STEW, 1
   lvl3:
-  - 283,1
-  - 103,4
-  - 306,1
-  - 307,1
-  - 308,1
-  - 309,1
-  - 302,1
-  - 303,1
-  - 305,1
-  - 322,2
-  - 259,1
-  - 283,1
+  - GOLDEN_SWORD, 1
+  - MELON, 4
+  - IRON_HELMET, 1
+  - IRON_CHESTPLATE, 1
+  - IRON_LEGGINGS, 1
+  - IRON_BOOTS, 1
+  - CHAINMAIL_HELMET, 1
+  - CHAINMAIL_CHESTPLATE, 1
+  - CHAINMAIL_BOOTS, 1
+  - ENCHANTED_GOLDEN_APPLE, 2
+  - FLINT_AND_STEEL, 1
+  - GOLDEN_SWORD, 1
   lvl4:
-  - 267,1
+  - IRON_SWORD, 1
   lvl5:
-  - 276,1
-  - 310,1
-  - 311,1
-  - 312,1
-  - 313,1
-  - 354,2
-
-  
-  
-  
-  
+  - DIAMOND_SWORD, 1
+  - DIAMOND_HELMET, 1
+  - DIAMOND_CHESTPLATE, 1
+  - DIAMOND_LEGGINGS, 1
+  - DIAMOND_BOOTS, 1
+  - CAKE, 2

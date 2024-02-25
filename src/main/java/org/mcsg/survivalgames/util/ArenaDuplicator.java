@@ -99,8 +99,8 @@ public class ArenaDuplicator {
                         //  System.out.println(l1);
                         //  System.out.println(l2);
                         //if(w.getBlockTypeIdAt(l1) != w.getBlockTypeIdAt(l2)){
-                        try{
-                            if(l1.getBlock().getTypeId() != l2.getBlock().getTypeId()){
+                        try {
+                            if (l1.getBlock().getType() != l2.getBlock().getType()) {
 
             //                    Chunk c = l2.getChunk();
             //                    net.minecraft.server.Chunk chunk = ((CraftChunk) c).getHandle();

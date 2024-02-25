@@ -11,22 +11,31 @@ import org.bukkit.util.Vector;
 import org.mcsg.survivalgames.GameManager;
 import org.mcsg.survivalgames.SurvivalGames;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.Region;
 
 public class Test implements SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
 		WorldEditPlugin we = GameManager.getInstance().getWorldEdit();
-		Selection sel = we.getSelection(player);
+		LocalSession localSession = we.getSession(player);
+		Region sel = null;
+		try {
+			sel = localSession.getSelection();
+		} catch (IncompleteRegionException e) {
+			e.printStackTrace();
+		}
 		if (sel == null) {
 			return false;
 		}
-		Location max = sel.getMaximumPoint();
-		Location min = sel.getMinimumPoint();
+		BlockVector3 max = sel.getMaximumPoint();
+		BlockVector3 min = sel.getMinimumPoint();
 		
-		World w = max.getWorld();
+		World w = (World) sel.getWorld();
 		
 		HashSet<Location> mark = new HashSet<Location>();
 		
@@ -46,7 +55,7 @@ public class Test implements SubCommand{
 	
 	public Location getYLocation(World w, int x, int y, int z){
 		Location l = new Location(w,x,y,z);
-		while(l.getBlock().getTypeId() == 0){
+		while(l.getBlock().getType() == Material.AIR){
 			l.add(0,-1,0);
 		}
 		return l.add(0,1,0);
@@ -54,7 +63,7 @@ public class Test implements SubCommand{
 	
 	public void setFence(HashSet<Location> locs){
 		for(Location l: locs){
-			l.getBlock().setType(Material.FENCE);
+			l.getBlock().setType(Material.LEGACY_FENCE);
 		}
 	}
 

@@ -240,7 +240,12 @@ public class Game {
 
 						hookvars.put("activeplayers", activePlayers.size()+"");
 						LobbyManager.getInstance().updateWall(gameID);
-						showMenu(p);
+						
+						boolean kitsEnabled = SettingsManager.getInstance().getKits().getBoolean("enabled");
+						if (kitsEnabled) {
+							showMenu(p);
+						}
+
 						HookManager.getInstance().runHook("GAME_POST_ADDPLAYER", "activePlayers-"+activePlayers.size());
 
 						if(spawnCount == activePlayers.size()){
@@ -291,11 +296,10 @@ public class Game {
 
 	public void showMenu(Player p){
 		GameManager.getInstance().openKitMenu(p);
-		Inventory i = Bukkit.getServer().createInventory(p, 90, ChatColor.RED+""+ChatColor.BOLD+"Kit Selection");
+		Inventory i = Bukkit.getServer().createInventory(p, 9, ChatColor.RED + "" + ChatColor.BOLD + "Kit Selection");
 
 		int a = 0;
 		int b = 0;
-
 
 		ArrayList<Kit>kits = GameManager.getInstance().getKits(p);
 		SurvivalGames.debug(kits+"");

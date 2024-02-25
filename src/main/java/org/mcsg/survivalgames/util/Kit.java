@@ -15,9 +15,6 @@ public class Kit {
 	private ArrayList<ItemStack>items = new ArrayList<ItemStack>();
 	private ItemStack icon;
 	
-	
-	
-	
 	public Kit(String name){
 		this.name = name;
 		load();
@@ -26,6 +23,11 @@ public class Kit {
 	
 	public void load(){
 		FileConfiguration c = SettingsManager.getInstance().getKits();
+		boolean enabled = c.getBoolean("enabled");
+
+		if (!enabled) {
+			return;
+		}
 		cost = c.getDouble("kits."+name+".cost", 0);
 		
 		icon = ItemReader.read(c.getString("kits."+name+".icon"));

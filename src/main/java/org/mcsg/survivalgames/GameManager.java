@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -15,12 +14,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.mcsg.survivalgames.Game.GameMode;
 import org.mcsg.survivalgames.MessageManager.PrefixType;
-import org.mcsg.survivalgames.api.PlayerLeaveArenaEvent;
 import org.mcsg.survivalgames.stats.StatsManager;
 import org.mcsg.survivalgames.util.Kit;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.regions.Region;
 
 public class GameManager {
 
@@ -268,14 +269,21 @@ public class GameManager {
 		FileConfiguration c = SettingsManager.getInstance().getSystemConfig();
 		//SettingsManager s = SettingsManager.getInstance();
 
-		WorldEditPlugin we = p.getWorldEdit();
-		Selection sel = we.getSelection(pl);
-		if (sel == null) {
+		WorldEditPlugin worldEdit = p.getWorldEdit();
+		LocalSession localSession = worldEdit.getSession(pl);
+		Region selection = null;
+		try {
+			selection = localSession.getSelection();
+		} catch (IncompleteRegionException e) {
+			e.printStackTrace();
+		}
+
+		if (selection == null) {
 			msgmgr.sendMessage(PrefixType.WARNING, "You must make a WorldEdit Selection first!", pl);
 			return;
 		}
-		Location max = sel.getMaximumPoint();
-		Location min = sel.getMinimumPoint();
+		BlockVector3 max = selection.getMaximumPoint();
+		BlockVector3 min = selection.getMinimumPoint();
 
 		/* if(max.getWorld()!=SettingsManager.getGameWorld() || min.getWorld()!=SettingsManager.getGameWorld()){
             pl.sendMessage(ChatColor.RED+"Wrong World!");
@@ -288,7 +296,7 @@ public class GameManager {
 			no = 1;
 		} else no = games.get(games.size() - 1).getID() + 1;
 		SettingsManager.getInstance().getSpawns().set(("spawns." + no), null);
-		c.set("sg-system.arenas." + no + ".world", max.getWorld().getName());
+		c.set("sg-system.arenas." + no + ".world", localSession.getSelectionWorld().getName());
 		c.set("sg-system.arenas." + no + ".x1", max.getBlockX());
 		c.set("sg-system.arenas." + no + ".y1", max.getBlockY());
 		c.set("sg-system.arenas." + no + ".z1", max.getBlockZ());

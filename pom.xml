@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mcsg</groupId>
   <artifactId>survivalgames</artifactId>
-  <version>0.5.8</version>
+  <version>0.5.9-SNAPSHOT</version>
   <name>SurvivalGames</name>
       <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -12,22 +12,18 @@
 
     </properties>
   <repositories>
-    <repository>
-      <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/content/groups/public</url>
-    </repository> <!--
-<repository>
-<id>mcstats-repo</id>
-<url>http://repo.mcstats.org/content/repositories/public</url>
-</repository> -->
-    <repository>
-      <id>drtshock-repo</id>
-      <url>http://ci.drtshock.com/plugin/repository/everything</url>
-    </repository>
-    <repository>
-      <id>sk89q-repo</id>
-      <url>http://maven.sk89q.com/repo</url>
-    </repository>
+      <repository>
+          <id>spigot-repo</id>
+          <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+      </repository>
+      <repository>
+          <id>vault-repo</id>
+          <url>https://nexus.hc.to/content/repositories/pub_releases/</url>
+      </repository>
+      <repository>
+        <id>enginehub-maven</id>
+        <url>https://maven.enginehub.org/repo/</url>
+      </repository>
   </repositories>
   <build>
     <plugins> <!--
@@ -62,8 +58,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -98,19 +94,22 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.bukkit</groupId>
-      <artifactId>bukkit</artifactId>
-      <version>1.5.2-R0.1</version>
+           <groupId>org.spigotmc</groupId>
+           <artifactId>spigot-api</artifactId>
+           <version>1.20.4-R0.1-SNAPSHOT</version>
+           <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.sk89q</groupId>
-      <artifactId>worldedit</artifactId>
-      <version>5.5.7-SNAPSHOT</version>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.3.0-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.milkbowl.vault</groupId>
       <artifactId>Vault</artifactId>
-      <version>1.2.26-SNAPSHOT</version>
+      <version>1.7.3</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>

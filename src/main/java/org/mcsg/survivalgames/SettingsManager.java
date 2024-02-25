@@ -14,7 +14,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.Vector;
 
 public class SettingsManager {
 
@@ -28,7 +27,6 @@ public class SettingsManager {
 	private FileConfiguration messages;
 	private FileConfiguration chest;
 
-
 	private File f; //spawns
 	private File f2; //system
 	private File f3; //kits
@@ -37,10 +35,9 @@ public class SettingsManager {
 	
 	private static final int KIT_VERSION = 1;
 	private static final int MESSAGE_VERSION = 1;
-	private static final int CHEST_VERSION = 0;
+	private static final int CHEST_VERSION = 1;
 	private static final int SPAWN_VERSION = 0;
 	private static final int SYSTEM_VERSION = 0;
-	
 	
 	private SettingsManager() {
 
@@ -93,8 +90,6 @@ public class SettingsManager {
 		
 		reloadMessages();
 		saveMessages();
-		
-		
 	}
 
 	public void set(String arg0, Object arg1) {
@@ -140,18 +135,18 @@ public class SettingsManager {
 		return p.getServer().getWorld(SettingsManager.getInstance().getSystemConfig().getString("sg-system.arenas." + game + ".world"));
 	}
 
-	public void reloadConfig(){
+	public void reloadConfig() {
 		p.reloadConfig();
 	}
 	
-	public boolean moveFile(File ff){
+	public boolean moveFile(File ff) {
 		SurvivalGames.$("Moving outdated config file. "+f.getName());
 		String name = ff.getName();
 		File ff2 = new File(SurvivalGames.getPluginDataFolder(), getNextName(name, 0));
 		return ff.renameTo(ff2);
 	}
 	
-	public String getNextName(String name, int n){
+	public String getNextName(String name, int n) {
 		File ff = new File(SurvivalGames.getPluginDataFolder(), name+".old"+n);
 		if(!ff.exists()){
 			return ff.getName();
@@ -212,10 +207,6 @@ public class SettingsManager {
 			reloadKits();
 		}
 	}
-
-
-
-
 
 	public void saveSystemConfig() {
 		try {
